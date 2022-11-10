@@ -9,6 +9,13 @@
       return { 
       }
     },
+    created () {
+    document.title = "Суды - Главная";
+    this.$nextTick(() => {
+      mainWrapper.style.height = document.documentElement.clientHeight - this.store.navHeight + 'px'
+    })
+
+  },
     methods:{
 
     }

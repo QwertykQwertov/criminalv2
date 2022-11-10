@@ -100,7 +100,7 @@ body {
 
   /* /* height: auto; */
   /* min-height: 100vh;  */
-  height: 100vh;
+  /* height: 100vh; */
   background: linear-gradient(rgba(255, 255, 255, 0.6), rgba(0, 0, 0, 0.8)),
     url(./assets/femida.jpg);
   background-position: top;
@@ -110,8 +110,7 @@ body {
   color: rgb(94 94 94);
   font-family: "Helvetica Neue", "Segoe UI", helvetica, verdana, sans-serif;
 }
-.dx-drawer-overlap.dx-drawer-left .dx-drawer-wrapper,
-.dx-drawer-overlap.dx-drawer-right .dx-drawer-wrapper {
-  /* overflow-y: hidden; */
+.dx-drawer-overlap.dx-drawer-left .dx-drawer-wrapper, .dx-drawer-overlap.dx-drawer-right .dx-drawer-wrapper {
+    overflow-y: hidden;
 }
 </style>
