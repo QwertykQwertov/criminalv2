@@ -1,13 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from '@/pages/Home'
-import Login from '@/pages/Login'
-import Register from '@/pages/Register'
-import Cabinet from '@/pages/Cabinet'
-import Admin from '@/pages/Admin'
-import About from '@/pages/About'
-import Policy from '@/pages/Policy'
-import NotFound from '@/pages/NotFound'
 Vue.use(Router)
 
 
@@ -16,60 +8,38 @@ let router = new Router({
   routes: [
     {
       path: '*',
-      component: NotFound
+      component: () => import ('@/pages/NotFound')
     },
     {
       path: '/',
-      name: 'Home',
-      component: Home
+      component: () => import ('@/pages/Home')
     },
     {
       path: '/login',
-      name: 'login',
-      component: Login,
+      component: () => import ('@/pages/Login'),
       meta: { 
         guest: true
       }
     },
     {
       path: '/register',
-      name: 'register',
-      component: Register,
-      meta: { 
-        guest: true
-      }
-    },
-    {
-      path: '/about',
-      name: 'about',
-      component: About,
+      component: () => import ('@/pages/Register'),
       meta: { 
         guest: true
       }
     },
     {
       path: '/cabinet',
-      name: 'cabinet',
-      component: Cabinet,
+      component: () => import ('@/pages/Cabinet'),
       meta: { 
         // requiresAuth: true
       }
     },
     {
       path: '/policy',
-      name: 'policy',
-      component: Policy,
+      component: () => import ('@/pages/Policy'),
       meta: { 
         guest: true
-      }
-    },
-    {
-      path: '/admin',
-      name: 'admin',
-      component: Admin,
-      meta: { 
-        requiresAuth: true,
-        is_admin : true
       }
     },
   ]

@@ -4,13 +4,13 @@
     style=" background-color: rgb(76 57 31 / 70%); padding-top:10% height:100%;"
   >
     <div class="wrapper-list">
-      <p class="list-item"><i class="dx-icon-group" />&nbsp&nbsp&nbsp{{store.user.fname + ' ' + store.user.lname}}</p>
+      <p class="list-item"><i class="dx-icon-group" />&nbsp&nbsp&nbsp{{$store.user.fname + ' ' + $store.user.lname}}</p>
     </div>
     <div class="wrapper-list">
-      <p class="list-item"><i class="dx-icon-email" />&nbsp&nbsp&nbsp{{store.user.email}}</p>
+      <p class="list-item"><i class="dx-icon-email" />&nbsp&nbsp&nbsp{{$store.user.email}}</p>
     </div>
     <div class="wrapper-list">
-      <p class="list-item"><i class="dx-icon-money" />&nbsp&nbsp&nbsp{{'Баланс: ' + store.user.balance + ' ₽'}}</p>
+      <p class="list-item"><i class="dx-icon-money" />&nbsp&nbsp&nbsp{{'Баланс: ' + $store.user.balance + ' ₽'}}</p>
     </div>
     <div class="wrapper-list">
       <p class="list-item"><i class="dx-icon-add" />&nbsp&nbsp&nbspПополнить баланс</p>
@@ -34,16 +34,10 @@
 </template>
 <script>
 import { DxList } from 'devextreme-vue/list';
-import store from "../store"
 
 export default {
   components: {
     DxList,
-  },
-  data () {
-    return {
-      store,
-    };
   },
   computed: {
     leftWidth () {
@@ -56,8 +50,8 @@ export default {
       this.$emit('close')
     },
     logout () {
-      this.store.user = {}
-      this.store.authorization = false
+      this.$store.user = {}
+      this.$store.authorization = false
       this.$router.push("/login")
       this.closeMenu()
     },

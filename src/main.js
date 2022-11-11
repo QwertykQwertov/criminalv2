@@ -3,12 +3,17 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import 'materialize-css/dist/js/materialize.min.js'
-import 'devextreme/dist/css/dx.light.css';
 
+import 'devextreme/dist/css/dx.light.css';
+import store from './store'
+
+import DxButton from "devextreme-vue/button";
+Vue.component('DxButton', DxButton)
+window['DxButton'] = DxButton
 
 
 Vue.config.productionTip = false
+Vue.prototype.$store = store;
 
 /* eslint-disable no-new */
 new Vue({

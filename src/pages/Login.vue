@@ -58,8 +58,6 @@
 </template>
 <script>
 import DxTextBox from "devextreme-vue/text-box";
-import store from "../store"
-import DxButton from "devextreme-vue/button";
 import DxValidationSummary from "devextreme-vue/validation-summary";
 import {
   DxValidator,
@@ -83,7 +81,6 @@ export default {
     DxStringLengthRule,
     DxRangeRule,
     DxAsyncRule,
-    DxButton,
     DxValidationSummary
   },
   name: "Header",
@@ -91,13 +88,12 @@ export default {
     return {
       email: "",
       password: "",
-      store,
     };
   },
   created () {
     document.title = "Суды - Вход";
     this.$nextTick(() => {
-      mainWrapper.style.height = document.documentElement.clientHeight - this.store.navHeight + 'px'
+      mainWrapper.style.height = this.$store.navHeight
     })
 
   },
@@ -111,9 +107,10 @@ export default {
           .then((data) => {
             data.forEach(element => {
               if (element.email == this.email && element.password == this.password) {
-                this.store.authorization = true
-                this.store.user = element
+                this.$store.authorization = true
+                this.$store.user = element
                 if (this.$router.currentRoute.path != '/cabinet') this.$router.push('/cabinet')
+                console.log(this.$store.authorization)
                 // dxToast
               }
             });

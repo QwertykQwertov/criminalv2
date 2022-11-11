@@ -30,7 +30,7 @@
         </ul>
       </div>
     </nav>
-    <!-- Mobile menu -->
+    <!-- Mobile menu -->  
     <ul
       ref="mobile-menu"
       class="sidenav sidenav-mobile"
@@ -56,29 +56,29 @@
 </template>
 
 <script>
-import DxButton from "devextreme-vue/button";
+
 import ModalAccount from "./ModalAccount.vue"
 import store from "../store"
 export default {
   components: {
-    DxButton,
     ModalAccount,
   },
-  data () {
-    return {
-      store,
-    };
+  data(){
+    return{ 
+      store
+    }
   },
   created () {
     this.$nextTick(() => {
-      const mobileBar = this.$refs["mobile-menu"];
-      M.Sidenav.init(mobileBar);
+      setTimeout(()=> {this.$store.authorization = true
+      console.log("ww")}, 3000)
+      // const mobileBar = this.$refs["mobile-menu"];
+      // M.Sidenav.init(mobileBar);
     });
   },
   methods: {
     showAccount () {
       this.$emit('toggleMenu')
-      // this.store.openState = true
     },
     changeLocation (route) {
       if (this.$router.currentRoute.path != route) this.$router.push(route)

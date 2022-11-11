@@ -108,7 +108,6 @@
 </template>
 <script>
 import DxTextBox from "devextreme-vue/text-box";
-import DxButton from "devextreme-vue/button";
 import DxValidationSummary from "devextreme-vue/validation-summary";
 import {
   DxValidator,
@@ -120,7 +119,6 @@ import {
   DxRangeRule,
   DxAsyncRule
 } from "devextreme-vue/validator";
-import store from "../store"
 
 // Заглушка на email
 const sendRequest = function (value) {
@@ -143,13 +141,11 @@ export default {
     DxStringLengthRule,
     DxRangeRule,
     DxAsyncRule,
-    DxButton,
     DxValidationSummary
   },
   props: ["nextUrl"],
   data () {
     return {
-      store,
       name: "",
       last_name: "",
       email: "",
@@ -161,7 +157,7 @@ export default {
   created () {
     document.title = "Суды - Регистрация";
     this.$nextTick(() => {
-      mainWrapper.style.height = document.documentElement.clientHeight - this.store.navHeight + 'px'
+      mainWrapper.style.height = this.$store.navHeight
     })
   },
   methods: {

@@ -55,17 +55,17 @@
           </div>
         </div>
         <div class="dx-field">
-          <div class="dx-field-label">Регион:</div>
+          <div class="dx-field-label">Область:</div>
           <div class="dx-field-value">
             <DxSelectBox
               v-model="region"
               :search-enabled="true"
-              :data-source="store.regions"
+              :data-source="$store.regions"
               search-mode="contains"
               search-expr="area"
               display-expr="area"
               value-expr="tag"
-              placeholder="Выберите регион для поиска"
+              placeholder="Выберите область для поиска"
             >
               <DxValidator>
                 <DxRequiredRule message="Регион обязателен для заполнения" />
@@ -89,7 +89,7 @@
     <DxDataGrid
       :height="500"
       ref="gridInfo"
-      :data-source="store.historyQueries"
+      :data-source="$store.historyQueries"
       :row-alternation-enabled="true"
       :show-borders="true"
       :focused-row-enabled="true"
@@ -122,7 +122,6 @@
   </div>
 </template>
 <script>
-import store from "../store";
 import ModalGrid from "../components/ModalGrid.vue";
 
 import DataSource from "devextreme/data/data_source";
@@ -134,7 +133,6 @@ import {
   DxSearchPanel
 } from "devextreme-vue/data-grid";
 import DxTextBox from "devextreme-vue/text-box";
-import DxButton from "devextreme-vue/button";
 import DxValidationSummary from "devextreme-vue/validation-summary";
 import {
   DxValidator,
@@ -147,7 +145,6 @@ export default {
     DxTextBox,
     DxValidator,
     DxRequiredRule,
-    DxButton,
     DxValidationSummary,
     DxDataGrid,
     DxColumn,
@@ -163,26 +160,24 @@ export default {
       lname: "",
       fatherName: "",
       region: "",
-      store,
       isVisible: false,
       message: "",
       type: "success"
     };
   },
   created () {
-    return fetch('http://94.228.115.6:5000/api/v1/courts_mapping')
+    fetch('http://94.228.115.6:5000/api/v1/courts_mapping')
       .then((response) => {
         return response.json();
       })
       .then(({ data }) => {
-        store.regions = data
+        this.$store.regions = data
       });
-    this.$nextTick(() => {
-      // console.log(this.store.regions.load())
-      // console.log(this.store.historyQueries1.load());
-    });
+      document.title = 'Суды - Кабинет'
+    // this.$nextTick(() => {
+    //   mainWrapper.style.height = this.$store.navHeight
+    // });
   },
-  computed: {},
   methods: {
     handleSubmit (e) {
       if (e.validationGroup.validate().isValid) {
@@ -199,7 +194,7 @@ export default {
               reportHistory.push(data)
               localStorage.setItem('reportHistory', JSON.stringify(reportHistory))
             }
-            this.store.historyQueries.reload()
+            this.$store.historyQueries.reload()
           });
       }
     },
@@ -225,14 +220,14 @@ export default {
           return response.json();
         })
         .then(({ data }) => {
-          this.store.selectQuery = new DataSource({
+          this.$store.selectQuery = new DataSource({
             key: "id",
             load () {
               return data;
             }
           });
-          this.store.selectQuery.reload()
-          this.store.showPopUp = true;
+          this.$store.selectQuery.reload()
+          this.$store.showPopUp = true;
         })
     },
   }
@@ -244,7 +239,7 @@ export default {
 .main-div {
   display: flex;
   justify-content: space-around;
-  margin-top: 5%;
+  padding-top: 5%;
   align-items: flex-start;
   flex-wrap: wrap;
 }

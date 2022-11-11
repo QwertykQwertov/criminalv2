@@ -1,8 +1,8 @@
 <template>
   <DxPopup
     ref="popup"
-    v-model="store.showPopUp"
-    :visible="store.showPopUp"
+    v-model="$store.showPopUp"
+    :visible="$store.showPopUp"
     :drag-enabled="false"
     :hide-on-outside-click="true"
     :show-title="true"
@@ -15,7 +15,7 @@
     >
       <DxDataGrid
         ref="grid"
-        :data-source="store.selectQuery"
+        :data-source="$store.selectQuery"
         :row-alternation-enabled="true"
         :show-borders="true"
         :focused-row-enabled="true"
@@ -81,8 +81,6 @@ import { DxScrollView } from "devextreme-vue/scroll-view";
 import { exportDataGrid } from "devextreme/pdf_exporter";
 import { font } from "../assets/fonts/utcFontForExportPDF";
 
-import store from "../store";
-
 import {
   DxDataGrid,
   DxColumn,
@@ -105,7 +103,6 @@ export default {
   },
   data () {
     return {
-      store,
       // font
     };
   },
@@ -121,10 +118,10 @@ export default {
       return ""
     },
     // closeOutside(e) {
-    //   this.store.showPopUp = false;
+    //   this.$store.showPopUp = false;
     // },
     onHiding () {
-      this.store.showPopUp = false;
+      this.$store.showPopUp = false;
     },
     // contentReady(e) {
     //   if (!e.component.getSelectedRowKeys().length) {

@@ -44,8 +44,6 @@ import NavigationList from "./components/NavigationList.vue"
 
 import { DxScrollView } from 'devextreme-vue/scroll-view';
 
-import store from "./store"
-
 export default {
   name: 'App',
   components: {
@@ -55,30 +53,16 @@ export default {
     DxScrollView,
     NavigationList
   },
-  data () {
-    return {
-      store,
-    }
-  },
   created () {
     this.$nextTick(() => {
-      this.store.navHeight = this.$refs.nav.$el.offsetHeight
-      const drawer = app.querySelector('.dx-drawer')
-      drawer.style.height = document.documentElement.clientHeight - this.store.navHeight + 'px'
-      scrollview.style.height = drawer.style.height
+      this.$store.navHeight = document.documentElement.clientHeight - this.$refs.nav.$el.offsetHeight + 'px'
+      app.querySelector('.dx-drawer').style.height = this.$store.navHeight
+      scrollview.style.height = this.$store.navHeight
     })
   },
-  // computed: {
-  //   clientHeight () {
-  //     this.$nextTick(() => {
-  //       return document.documentElement.clientHeight - this.$refs.nav.$el.offsetHeight + 'px'
-  //     })
-  //   }
-  // },
   methods: {
     toggleLeftMenu () {
       this.$refs.leftMenu.$_instance.toggle()
-      // console.log()
     },
     closeLeftMenu () {
       this.$refs.leftMenu.$_instance.hide()
@@ -102,7 +86,7 @@ body {
   /* min-height: 100vh;  */
   /* height: 100vh; */
   background: linear-gradient(rgba(255, 255, 255, 0.6), rgba(0, 0, 0, 0.8)),
-    url(./assets/femida.jpg);
+    url(./assets/femida_compress.jpg);
   background-position: top;
   background-size: 100%;
 }
