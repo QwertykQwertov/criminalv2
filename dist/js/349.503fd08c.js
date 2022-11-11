@@ -1,2 +1,0 @@
-"use strict";(self["webpackChunkcriminal"]=self["webpackChunkcriminal"]||[]).push([[349],{9848:function(t,e,n){n.r(e),n.d(e,{default:function(){return c}});var i=function(){var t=this,e=t._self._c;return e("div",{attrs:{id:"mainWrapper"}})},r=[],a={created(){document.title="Суды - Главная",this.$nextTick((()=>{mainWrapper.style.height=this.$store.navHeight}))}},l=a,u=n(1001),s=(0,u.Z)(l,i,r,!1,null,null,null),c=s.exports}}]);
-//# sourceMappingURL=349.503fd08c.js.map

@@ -51,30 +51,17 @@
           class="sidenav-close"
         >Регистрация</a></li>
     </ul>
-    <ModalAccount />
   </div>
 </template>
 
 <script>
 
-import ModalAccount from "./ModalAccount.vue"
 import store from "../store"
 export default {
-  components: {
-    ModalAccount,
-  },
   data(){
     return{ 
       store
     }
-  },
-  created () {
-    this.$nextTick(() => {
-      setTimeout(()=> {this.$store.authorization = true
-      console.log("ww")}, 3000)
-      // const mobileBar = this.$refs["mobile-menu"];
-      // M.Sidenav.init(mobileBar);
-    });
   },
   methods: {
     showAccount () {

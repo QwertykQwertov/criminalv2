@@ -107,16 +107,11 @@
   </div>
 </template>
 <script>
-import DxTextBox from "devextreme-vue/text-box";
-import DxValidationSummary from "devextreme-vue/validation-summary";
 import {
   DxValidator,
   DxRequiredRule,
   DxCompareRule,
   DxEmailRule,
-  DxPatternRule,
-  DxStringLengthRule,
-  DxRangeRule,
   DxAsyncRule
 } from "devextreme-vue/validator";
 
@@ -132,16 +127,11 @@ const sendRequest = function (value) {
 
 export default {
   components: {
-    DxTextBox,
     DxValidator,
     DxRequiredRule,
     DxCompareRule,
     DxEmailRule,
-    DxPatternRule,
-    DxStringLengthRule,
-    DxRangeRule,
     DxAsyncRule,
-    DxValidationSummary
   },
   props: ["nextUrl"],
   data () {
@@ -170,46 +160,46 @@ export default {
     asyncValidation (params) {
       return sendRequest(params.value);
     },
-    handleSubmit (e) {
-      e.preventDefault();
+    // handleSubmit (e) {
+    //   e.preventDefault();
 
-      if (
-        this.password === this.password_confirmation &&
-        this.password.length > 0
-      ) {
-        let url = "http://localhost:3000/register";
-        if (this.is_admin != null || this.is_admin == 1)
-          url = "http://localhost:3000/register-admin";
-        this.$http
-          .post(url, {
-            name: this.name,
-            email: this.email,
-            password: this.password,
-            is_admin: this.is_admin
-          })
-          .then(response => {
-            localStorage.setItem("user", JSON.stringify(response.data.user));
-            localStorage.setItem("jwt", response.data.token);
+    //   if (
+    //     this.password === this.password_confirmation &&
+    //     this.password.length > 0
+    //   ) {
+    //     let url = "http://localhost:3000/register";
+    //     if (this.is_admin != null || this.is_admin == 1)
+    //       url = "http://localhost:3000/register-admin";
+    //     this.$http
+    //       .post(url, {
+    //         name: this.name,
+    //         email: this.email,
+    //         password: this.password,
+    //         is_admin: this.is_admin
+    //       })
+    //       .then(response => {
+    //         localStorage.setItem("user", JSON.stringify(response.data.user));
+    //         localStorage.setItem("jwt", response.data.token);
 
-            if (localStorage.getItem("jwt") != null) {
-              this.$emit("loggedIn");
-              if (this.$route.params.nextUrl != null) {
-                this.$router.push(this.$route.params.nextUrl);
-              } else {
-                this.$router.push("/");
-              }
-            }
-          })
-          .catch(error => {
-            console.error(error);
-          });
-      } else {
-        this.password = "";
-        this.passwordConfirm = "";
+    //         if (localStorage.getItem("jwt") != null) {
+    //           this.$emit("loggedIn");
+    //           if (this.$route.params.nextUrl != null) {
+    //             this.$router.push(this.$route.params.nextUrl);
+    //           } else {
+    //             this.$router.push("/");
+    //           }
+    //         }
+    //       })
+    //       .catch(error => {
+    //         console.error(error);
+    //       });
+    //   } else {
+    //     this.password = "";
+    //     this.passwordConfirm = "";
 
-        return alert("Passwords do not match");
-      }
-    }
+    //     return alert("Passwords do not match");
+    //   }
+    // }
   }
 };
 </script>

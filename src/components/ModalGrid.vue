@@ -76,10 +76,7 @@
 </template>
 
 <script>
-import DxPopup from "devextreme-vue/popup";
 import { DxScrollView } from "devextreme-vue/scroll-view";
-import { exportDataGrid } from "devextreme/pdf_exporter";
-import { font } from "../assets/fonts/utcFontForExportPDF";
 
 import {
   DxDataGrid,
@@ -87,19 +84,16 @@ import {
   DxSorting,
   DxSearchPanel,
   DxMasterDetail,
-  DxExport
 } from "devextreme-vue/data-grid";
 
 export default {
   components: {
-    DxPopup,
     DxDataGrid,
     DxColumn,
     DxSorting,
     DxSearchPanel,
     DxMasterDetail,
     DxScrollView,
-    DxExport
   },
   data () {
     return {

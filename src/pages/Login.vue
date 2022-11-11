@@ -57,31 +57,17 @@
   </div>
 </template>
 <script>
-import DxTextBox from "devextreme-vue/text-box";
-import DxValidationSummary from "devextreme-vue/validation-summary";
 import {
   DxValidator,
   DxRequiredRule,
-  DxCompareRule,
   DxEmailRule,
-  DxPatternRule,
-  DxStringLengthRule,
-  DxRangeRule,
-  DxAsyncRule
 } from "devextreme-vue/validator";
 
 export default {
   components: {
-    DxTextBox,
     DxValidator,
     DxRequiredRule,
-    DxCompareRule,
     DxEmailRule,
-    DxPatternRule,
-    DxStringLengthRule,
-    DxRangeRule,
-    DxAsyncRule,
-    DxValidationSummary
   },
   name: "Header",
   data () {
@@ -110,7 +96,6 @@ export default {
                 this.$store.authorization = true
                 this.$store.user = element
                 if (this.$router.currentRoute.path != '/cabinet') this.$router.push('/cabinet')
-                console.log(this.$store.authorization)
                 // dxToast
               }
             });

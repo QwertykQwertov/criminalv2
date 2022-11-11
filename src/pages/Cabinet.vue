@@ -132,8 +132,6 @@ import {
   DxSorting,
   DxSearchPanel
 } from "devextreme-vue/data-grid";
-import DxTextBox from "devextreme-vue/text-box";
-import DxValidationSummary from "devextreme-vue/validation-summary";
 import {
   DxValidator,
   DxRequiredRule,
@@ -142,10 +140,8 @@ import { DxSelectBox } from 'devextreme-vue/select-box';
 
 export default {
   components: {
-    DxTextBox,
     DxValidator,
     DxRequiredRule,
-    DxValidationSummary,
     DxDataGrid,
     DxColumn,
     DxSorting,
