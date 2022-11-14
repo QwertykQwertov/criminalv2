@@ -58,6 +58,7 @@ export default {
       this.$store.navHeight = document.documentElement.clientHeight - this.$refs.nav.$el.offsetHeight + 'px'
       app.querySelector('.dx-drawer').style.height = this.$store.navHeight
       scrollview.style.height = this.$store.navHeight
+      app.querySelector('.dx-overlay-wrapper').style.height = this.$store.navHeight
     })
   },
   methods: {
@@ -95,6 +96,6 @@ body {
   font-family: "Helvetica Neue", "Segoe UI", helvetica, verdana, sans-serif;
 }
 .dx-drawer-overlap.dx-drawer-left .dx-drawer-wrapper, .dx-drawer-overlap.dx-drawer-right .dx-drawer-wrapper {
-    overflow-y: hidden;
+    /* overflow-y: hidden; */
 }
 </style>
