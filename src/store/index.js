@@ -6,12 +6,32 @@ const store = {
   authorization: false,
   user: {},
   regions: [],
-   historyQueries:
+  historyQueries:
     new DataSource({
       key: "task_id",
       load () {
-        const reportHistory = JSON.parse(localStorage.getItem('reportHistory'))
-        return reportHistory || []
+        let reportHistory = JSON.parse(localStorage.getItem('reportHistory'))
+        if (reportHistory) {
+          // return reportHistory =
+          let test = reportHistory.map(el => {
+            return fetch(`http://94.228.115.6:5000/api/v1/check?id=${el.task_id}`)
+              .then((response) => {
+                return response.json();
+              })
+              .then(({ data }) => {
+                if (data.every(element => element.status === "SUCCESS")) {
+                  el.status = "Готов"
+                  return el
+                } else {
+                  el.status = "Проверяется"
+                  return el
+                }
+              });
+          })
+          return Promise.all(test).then(res => res)
+          
+        }
+        return []
       }
     }),
   selectQuery: [],

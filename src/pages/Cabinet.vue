@@ -5,91 +5,98 @@
         Получение информации по ФИО и региону
       </h3>
       <hr style="border: 1px solid #f5f5f5;" />
-      <div class="dx-fieldset">
-        <div class="dx-field">
-          <div class="dx-field-label">Фамилия:</div>
-          <div class="dx-field-value">
-            <DxTextBox
-              v-model="lname"
-              :value="lname"
-              :show-clear-button="true"
-              :hover-state-enabled="false"
-              placeholder="Введите фамилию для запроса"
-            >
-              <DxValidator>
-                <DxRequiredRule message="Фамилия обязательна для заполнения" />
-              </DxValidator>
-            </DxTextBox>
+      <DxValidationGroup ref="validGroup">
+        <div class="dx-fieldset">
+          <div class="dx-field">
+            <div class="dx-field-label">Фамилия:</div>
+            <div class="dx-field-value">
+              <DxTextBox
+                v-model="lname"
+                :value="lname"
+                :show-clear-button="true"
+                :hover-state-enabled="false"
+                placeholder="Введите фамилию для запроса"
+              >
+                <DxValidator>
+                  <DxRequiredRule message="Фамилия обязательна для заполнения" />
+                </DxValidator>
+              </DxTextBox>
+            </div>
+          </div>
+          <div class="dx-field">
+            <div class="dx-field-label">Имя:</div>
+            <div class="dx-field-value">
+              <DxTextBox
+                v-model="fname"
+                :value="fname"
+                :show-clear-button="true"
+                :hover-state-enabled="false"
+                placeholder="Введите имя для запроса"
+              >
+                <DxValidator>
+                  <DxRequiredRule message="Имя обязательно для заполнения" />
+                </DxValidator>
+              </DxTextBox>
+            </div>
+          </div>
+          <div class="dx-field">
+            <div class="dx-field-label">Отчество:</div>
+            <div class="dx-field-value">
+              <DxTextBox
+                v-model="fatherName"
+                :value="fatherName"
+                :show-clear-button="true"
+                :hover-state-enabled="false"
+                placeholder="Введите отчество для запроса"
+              >
+                <DxValidator>
+                  <DxRequiredRule message="Отчество обязательно для заполнения" />
+                </DxValidator>
+              </DxTextBox>
+            </div>
+          </div>
+          <div class="dx-field">
+            <div class="dx-field-label">Область:</div>
+            <div class="dx-field-value">
+              <DxSelectBox
+                v-model="region"
+                :search-enabled="true"
+                :data-source="store.regions"
+                noDataText="Совпадений не найдено"
+                search-mode="contains"
+                search-expr="area"
+                display-expr="area"
+                value-expr="tag"
+                placeholder="Выберите область для поиска"
+              >
+                <DxValidator>
+                  <DxRequiredRule message="Регион обязателен для заполнения" />
+                </DxValidator>
+              </DxSelectBox>
+            </div>
           </div>
         </div>
-        <div class="dx-field">
-          <div class="dx-field-label">Имя:</div>
-          <div class="dx-field-value">
-            <DxTextBox
-              v-model="fname"
-              :value="fname"
-              :show-clear-button="true"
-              :hover-state-enabled="false"
-              placeholder="Введите имя для запроса"
-            >
-              <DxValidator>
-                <DxRequiredRule message="Имя обязательно для заполнения" />
-              </DxValidator>
-            </DxTextBox>
-          </div>
+        <div class="dx-fieldset">
+          <DxValidationSummary
+            ref="validatorSum"
+            id="summary"
+          />
+          <DxButton
+            id="button"
+            :use-submit-behavior="true"
+            text="Получить информацию"
+            type="success"
+            @click="handleSubmit($event)"
+          />
         </div>
-        <div class="dx-field">
-          <div class="dx-field-label">Отчество:</div>
-          <div class="dx-field-value">
-            <DxTextBox
-              v-model="fatherName"
-              :value="fatherName"
-              :show-clear-button="true"
-              :hover-state-enabled="false"
-              placeholder="Введите отчество для запроса"
-            >
-              <DxValidator>
-                <DxRequiredRule message="Отчество обязательно для заполнения" />
-              </DxValidator>
-            </DxTextBox>
-          </div>
-        </div>
-        <div class="dx-field">
-          <div class="dx-field-label">Область:</div>
-          <div class="dx-field-value">
-            <DxSelectBox
-              v-model="region"
-              :search-enabled="true"
-              :data-source="$store.regions"
-              search-mode="contains"
-              search-expr="area"
-              display-expr="area"
-              value-expr="tag"
-              placeholder="Выберите область для поиска"
-            >
-              <DxValidator>
-                <DxRequiredRule message="Регион обязателен для заполнения" />
-              </DxValidator>
-            </DxSelectBox>
-          </div>
-        </div>
-      </div>
-      <div class="dx-fieldset">
-        <DxValidationSummary id="summary" />
-        <DxButton
-          id="button"
-          :use-submit-behavior="true"
-          text="Получить информацию"
-          type="success"
-          @click="handleSubmit($event)"
-        />
-      </div>
+      </DxValidationGroup>
     </div>
 
     <DxDataGrid
       :height="500"
       ref="gridInfo"
-      :data-source="$store.historyQueries"
+      noDataText="Нет данных для отображения"
+      :data-source="store.historyQueries"
       :row-alternation-enabled="true"
       :show-borders="true"
       :focused-row-enabled="true"
@@ -113,7 +120,11 @@
       />
       <DxSorting mode="multiple" />
     </DxDataGrid>
-    <ModalGrid />
+    <ModalGrid
+      @closePopUp="closePopUp"
+      :showPopUp="store.showPopUp"
+      :selectQuery="store.selectQuery"
+    />
     <DxToast
       :visible="isVisible"
       :message="message"
@@ -123,6 +134,7 @@
 </template>
 <script>
 import ModalGrid from "../components/ModalGrid.vue";
+import store from "../store"
 
 import DataSource from "devextreme/data/data_source";
 import { DxToast } from "devextreme-vue/toast";
@@ -137,6 +149,7 @@ import {
   DxRequiredRule,
 } from "devextreme-vue/validator";
 import { DxSelectBox } from 'devextreme-vue/select-box';
+import DxValidationGroup from 'devextreme-vue/validation-group';
 
 export default {
   components: {
@@ -148,10 +161,12 @@ export default {
     DxSearchPanel,
     DxToast,
     DxSelectBox,
+    DxValidationGroup,
     ModalGrid
   },
   data () {
     return {
+      store,
       fname: "",
       lname: "",
       fatherName: "",
@@ -167,11 +182,11 @@ export default {
         return response.json();
       })
       .then(({ data }) => {
-        this.$store.regions = data
+        this.store.regions = data
       });
-      document.title = 'Суды - Кабинет'
+    document.title = 'Суды - Кабинет'
     // this.$nextTick(() => {
-    //   mainWrapper.style.height = this.$store.navHeight
+    //   mainWrapper.style.height = this.store.navHeight
     // });
   },
   methods: {
@@ -181,7 +196,7 @@ export default {
           .then((response) => {
             return response.json();
           })
-          .then((data) => {
+          .then(async (data) => {
             let reportHistory = JSON.parse(localStorage.getItem('reportHistory'))
             if (reportHistory == null) {
               reportHistory = JSON.stringify([data])
@@ -190,25 +205,21 @@ export default {
               reportHistory.push(data)
               localStorage.setItem('reportHistory', JSON.stringify(reportHistory))
             }
-            this.$store.historyQueries.reload()
-          });
+            this.resetForm()
+            await this.store.historyQueries.reload()
+            this.getStatus()
+          })
       }
     },
     checkOnComplete (e) {
-      fetch(`http://94.228.115.6:5000/api/v1/check?id=${e.data.task_id}`)
-        .then((response) => {
-          return response.json();
-        })
-        .then(({ data }) => {
-          if (data.every(element => element.status === "SUCCESS")) {
-            this.openPopUp(e.data.task_id)
-          } else {
-            this.isVisible = true;
-            this.message = "Выбранный отчет еще не выполнен";
-            this.type = "warning";
-            setTimeout(() => { this.isVisible = false }, 3000)
-          }
-        });
+      if (e.data.status === "Готов") {
+        this.openPopUp(e.data.task_id)
+      } else {
+        this.isVisible = true;
+        this.message = "Выбранный отчет еще не выполнен";
+        this.type = "warning";
+        setTimeout(() => { this.isVisible = false }, 3000)
+      }
     },
     openPopUp (task_id) {
       fetch(`http://94.228.115.6:5000/api/v1/result?id=${task_id}`)
@@ -216,16 +227,30 @@ export default {
           return response.json();
         })
         .then(({ data }) => {
-          this.$store.selectQuery = new DataSource({
+          this.store.selectQuery = new DataSource({
             key: "id",
             load () {
               return data;
             }
           });
-          this.$store.selectQuery.reload()
-          this.$store.showPopUp = true;
+          this.store.selectQuery.reload()
+          this.store.showPopUp = true;
         })
     },
+    closePopUp () {
+      this.store.showPopUp = false
+    },
+    getStatus () {
+      if (this.store.historyQueries._items.some(el => el.status != "Готов")) {
+        this.store.historyQueries.reload()
+        setTimeout(this.getStatus, 3000)
+      }
+    },
+    resetForm () {
+      this.$nextTick(() => {
+        this.$refs.validGroup.$_instance.reset()
+      })
+    }
   }
 };
 </script>

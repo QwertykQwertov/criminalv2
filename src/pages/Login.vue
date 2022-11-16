@@ -57,6 +57,7 @@
   </div>
 </template>
 <script>
+import store from "../store"
 import {
   DxValidator,
   DxRequiredRule,
@@ -72,6 +73,7 @@ export default {
   name: "Header",
   data () {
     return {
+      store,
       email: "",
       password: "",
     };
@@ -79,7 +81,7 @@ export default {
   created () {
     document.title = "Суды - Вход";
     this.$nextTick(() => {
-      mainWrapper.style.height = this.$store.navHeight
+      mainWrapper.style.height = this.store.navHeight
     })
 
   },
@@ -93,8 +95,8 @@ export default {
           .then((data) => {
             data.forEach(element => {
               if (element.email == this.email && element.password == this.password) {
-                this.$store.authorization = true
-                this.$store.user = element
+                this.store.authorization = true
+                this.store.user = element
                 if (this.$router.currentRoute.path != '/cabinet') this.$router.push('/cabinet')
                 // dxToast
               }

@@ -5,7 +5,7 @@ import App from './App'
 import router from './router'
 
 import 'devextreme/dist/css/dx.light.css';
-import store from './store'
+import 'materialize-css/dist/js/materialize'
 
 import DxButton from "devextreme-vue/button";
 Vue.component('DxButton', DxButton)
@@ -24,7 +24,7 @@ Vue.component('DxValidationSummary', DxValidationSummary)
 window['DxValidationSummary'] = DxValidationSummary
 
 Vue.config.productionTip = false
-Vue.prototype.$store = store;
+// Vue.prototype.$store = store;
 
 /* eslint-disable no-new */
 new Vue({

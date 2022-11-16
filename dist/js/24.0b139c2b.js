@@ -1,2 +1,0 @@
-"use strict";(self["webpackChunkcriminal"]=self["webpackChunkcriminal"]||[]).push([[24],{9024:function(n,t,u){u.r(t),u.d(t,{default:function(){return l}});var e=function(){var n=this;n._self._c;return n._m(0)},r=[function(){var n=this,t=n._self._c;return t("div",{staticClass:"notfound"},[t("h1",[n._v("Страница не найдена")]),t("h1",[n._v("404")])])}],i={name:"NotFound"},s=i,a=u(1001),c=(0,a.Z)(s,e,r,!1,null,"3ea3d314",null),l=c.exports}}]);
-//# sourceMappingURL=24.0b139c2b.js.map

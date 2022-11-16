@@ -107,6 +107,7 @@
   </div>
 </template>
 <script>
+import store from "../store"
 import {
   DxValidator,
   DxRequiredRule,
@@ -136,6 +137,7 @@ export default {
   props: ["nextUrl"],
   data () {
     return {
+      store,
       name: "",
       last_name: "",
       email: "",
@@ -147,7 +149,7 @@ export default {
   created () {
     document.title = "Суды - Регистрация";
     this.$nextTick(() => {
-      mainWrapper.style.height = this.$store.navHeight
+      mainWrapper.style.height = this.store.navHeight
     })
   },
   methods: {

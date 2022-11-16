@@ -1,6 +1,9 @@
 <template>
-  <div id="app">
+  <div
+    id="app"
+  >
     <Header
+      :authorization="store.authorization"
       ref="nav"
       @toggleMenu="toggleLeftMenu"
       @closeMenu="closeLeftMenu"
@@ -41,6 +44,7 @@ import Header from "./components/Header.vue"
 import Footer from "./components/Footer.vue"
 import DxDrawer from "devextreme-vue/drawer"
 import NavigationList from "./components/NavigationList.vue"
+import store from "./store"
 
 import { DxScrollView } from 'devextreme-vue/scroll-view';
 
@@ -53,12 +57,17 @@ export default {
     DxScrollView,
     NavigationList
   },
+  data () {
+    return {
+      store
+    }
+  },
   created () {
     this.$nextTick(() => {
-      this.$store.navHeight = document.documentElement.clientHeight - this.$refs.nav.$el.offsetHeight + 'px'
-      app.querySelector('.dx-drawer').style.height = this.$store.navHeight
-      scrollview.style.height = this.$store.navHeight
-      app.querySelector('.dx-overlay-wrapper').style.height = this.$store.navHeight
+      this.store.navHeight = document.documentElement.clientHeight - this.$refs.nav.$el.offsetHeight + 'px'
+      app.querySelector('.dx-drawer').style.height = this.store.navHeight
+      scrollview.style.height = this.store.navHeight
+      app.querySelector('.dx-overlay-wrapper').style.height = this.store.navHeight
     })
   },
   methods: {
@@ -67,7 +76,7 @@ export default {
     },
     closeLeftMenu () {
       this.$refs.leftMenu.$_instance.hide()
-    }
+    },
   }
 }
 </script>
@@ -95,7 +104,8 @@ body {
   color: rgb(94 94 94);
   font-family: "Helvetica Neue", "Segoe UI", helvetica, verdana, sans-serif;
 }
-.dx-drawer-overlap.dx-drawer-left .dx-drawer-wrapper, .dx-drawer-overlap.dx-drawer-right .dx-drawer-wrapper {
-    /* overflow-y: hidden; */
+.dx-drawer-overlap.dx-drawer-left .dx-drawer-wrapper,
+.dx-drawer-overlap.dx-drawer-right .dx-drawer-wrapper {
+  /* overflow-y: hidden; */
 }
 </style>

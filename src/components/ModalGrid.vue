@@ -1,8 +1,8 @@
 <template>
   <DxPopup
     ref="popup"
-    v-model="$store.showPopUp"
-    :visible="$store.showPopUp"
+    v-model="showPopUp"
+    :visible="showPopUp"
     :drag-enabled="false"
     :hide-on-outside-click="true"
     :show-title="true"
@@ -15,7 +15,8 @@
     >
       <DxDataGrid
         ref="grid"
-        :data-source="$store.selectQuery"
+        noDataText="Судебных разбирательств не найдено"
+        :data-source="selectQuery"
         :row-alternation-enabled="true"
         :show-borders="true"
         :focused-row-enabled="true"
@@ -95,6 +96,7 @@ export default {
     DxMasterDetail,
     DxScrollView,
   },
+  props:['showPopUp','selectQuery'],
   data () {
     return {
       // font
@@ -102,6 +104,11 @@ export default {
   },
   created () {
     // this.$nextTick(()=> console.log(font))
+  },
+  computed:{
+show(){
+  return this.showPopUp
+}
   },
   methods: {
     formatDate (date) {
@@ -115,7 +122,8 @@ export default {
     //   this.$store.showPopUp = false;
     // },
     onHiding () {
-      this.$store.showPopUp = false;
+      this.$emit('closePopUp')
+      // this.showPopUp = false;
     },
     // contentReady(e) {
     //   if (!e.component.getSelectedRowKeys().length) {
