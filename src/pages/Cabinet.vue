@@ -7,74 +7,69 @@
       <hr style="border: 1px solid #f5f5f5;" />
       <DxValidationGroup ref="validGroup">
         <div class="dx-fieldset">
-          <div class="dx-field">
-            <div class="dx-field-label">Фамилия:</div>
-            <div class="dx-field-value">
-              <DxTextBox
-                v-model="lname"
-                :value="lname"
-                :show-clear-button="true"
-                :hover-state-enabled="false"
-                placeholder="Введите фамилию для запроса"
-              >
-                <DxValidator>
-                  <DxRequiredRule message="Фамилия обязательна для заполнения" />
-                </DxValidator>
-              </DxTextBox>
+          <div class="dx-field" style="display: flex">
+            <div style="width: 70%">
+              <div class="dx-field-label" style="width:20%">ФИО:</div>
+              <div class="dx-field-value" style="width:80%">
+                <DxTextBox
+                  v-model="lname"
+                  :value="lname"
+                  :show-clear-button="true"
+                  :hover-state-enabled="false"
+                  placeholder="Введите фамилию, имя и отчество"
+                >
+                  <DxValidator>
+                    <DxRequiredRule message="ФИО обязательны для заполнения" />
+                  </DxValidator>
+                </DxTextBox>
+              </div>
+            </div>
+            <div style="width: 30%">
+              <div class="dx-field-label">Область:</div>
+              <div class="dx-field-value">
+                <DxSelectBox
+                  v-model="region"
+                  :search-enabled="true"
+                  :data-source="store.regions"
+                  noDataText="Совпадений не найдено"
+                  search-mode="contains"
+                  search-expr="area"
+                  display-expr="area"
+                  value-expr="tag"
+                  placeholder="Выберите область для поиска"
+                >
+                  <DxValidator>
+                    <DxRequiredRule message="Регион обязателен для заполнения" />
+                  </DxValidator>
+                </DxSelectBox>
+              </div>
             </div>
           </div>
-          <div class="dx-field">
-            <div class="dx-field-label">Имя:</div>
-            <div class="dx-field-value">
-              <DxTextBox
-                v-model="fname"
-                :value="fname"
-                :show-clear-button="true"
-                :hover-state-enabled="false"
-                placeholder="Введите имя для запроса"
-              >
-                <DxValidator>
-                  <DxRequiredRule message="Имя обязательно для заполнения" />
-                </DxValidator>
-              </DxTextBox>
-            </div>
+
+          <!-- <div class="dx-field">
+          <div class="dx-field-label">Гриф секретности*:</div>
+          <div class="dx-field-value">
+            <DxSelectBox :search-enabled="true" :search-mode="'startswith'" :search-expr="'display'"
+              :data-source="grifsecret" display-expr="display" value-expr="value" placeholder="Гриф секретности документа"
+              v-model="ths.global.message.obj_attrs.AIUS_GRIF" :show-clear-button="true"
+              hint="Укажите гриф секретности сообщения">
+              <DxValidator>
+                <DxRequiredRule message="Укажите гриф секретности!" />
+              </DxValidator>
+            </DxSelectBox>
           </div>
-          <div class="dx-field">
-            <div class="dx-field-label">Отчество:</div>
-            <div class="dx-field-value">
-              <DxTextBox
-                v-model="fatherName"
-                :value="fatherName"
-                :show-clear-button="true"
-                :hover-state-enabled="false"
-                placeholder="Введите отчество для запроса"
-              >
-                <DxValidator>
-                  <DxRequiredRule message="Отчество обязательно для заполнения" />
-                </DxValidator>
-              </DxTextBox>
-            </div>
+          <div class="dx-field-label" style="margin-left:2%">Категория срочности документа*:</div>
+          <div class="dx-field-value">
+            <DxSelectBox :search-enabled="true" :search-mode="'startswith'" :search-expr="'display'"
+              :data-source="srochnost" display-expr="display" value-expr="value"
+              placeholder="Категория срочности документа" v-model="ths.global.message.obj_attrs.AIUS_SROCHNOST"
+              :show-clear-button="true" hint="Укажите категорию срочности документа">
+              <DxValidator>
+                <DxRequiredRule message="Укажите категорию срочности!" />
+              </DxValidator>
+            </DxSelectBox>
           </div>
-          <div class="dx-field">
-            <div class="dx-field-label">Область:</div>
-            <div class="dx-field-value">
-              <DxSelectBox
-                v-model="region"
-                :search-enabled="true"
-                :data-source="store.regions"
-                noDataText="Совпадений не найдено"
-                search-mode="contains"
-                search-expr="area"
-                display-expr="area"
-                value-expr="tag"
-                placeholder="Выберите область для поиска"
-              >
-                <DxValidator>
-                  <DxRequiredRule message="Регион обязателен для заполнения" />
-                </DxValidator>
-              </DxSelectBox>
-            </div>
-          </div>
+        </div> -->
         </div>
         <div class="dx-fieldset">
           <DxValidationSummary
@@ -103,6 +98,7 @@
       style="margin: 5%"
       @rowDblClick="checkOnComplete($event)"
     >
+      <DxScrolling column-rendering-mode="virtual" />
       <DxColumn
         data-field="fio"
         caption="ФИО"
@@ -142,7 +138,8 @@ import {
   DxDataGrid,
   DxColumn,
   DxSorting,
-  DxSearchPanel
+  DxSearchPanel,
+  DxScrolling
 } from "devextreme-vue/data-grid";
 import {
   DxValidator,
@@ -158,6 +155,7 @@ export default {
     DxDataGrid,
     DxColumn,
     DxSorting,
+    DxScrolling,
     DxSearchPanel,
     DxToast,
     DxSelectBox,
